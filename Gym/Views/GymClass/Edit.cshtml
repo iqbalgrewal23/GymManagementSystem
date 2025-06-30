@@ -1,0 +1,19 @@
+@model Gym.Models.GymClass
+@{
+    ViewData["Title"] = "Edit Gym Class";
+}
+
+<h1>Edit Gym Class</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label for="ClassName">Class Name</label>
+        <input asp-for="ClassName" />
+        <span asp-validation-for="ClassName"></span>
+    </div>
+
+    <button type="submit">Save Changes</button>
+    <a asp-action="Index">Cancel</a>
+</form>

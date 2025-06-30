@@ -1,0 +1,46 @@
+@model IEnumerable<Gym.Models.Member>
+@{
+    ViewData["Title"] = "Members";
+}
+
+<h1>Members</h1>
+
+<form asp-action="Index" method="get">
+    <input type="text" name="searchString" placeholder="Search by name" />
+    <button type="submit">Search</button>
+</form>
+
+<p>
+    <a asp-action="Create">Add New Member</a>
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Trainer</th>
+            <th>Joined Classes</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var member in Model)
+{
+    <tr>
+        <td>@member.FullName</td>
+        <td>@member.Trainer?.Name</td>
+        <td>
+            @foreach (var mc in member.MemberClasses)
+            {
+                @mc.GymClass.ClassName <br />
+            }
+        </td>
+        <td>
+            <a asp-action="Details" asp-route-id="@member.Id">Details</a> |
+            <a asp-action="Edit" asp-route-id="@member.Id">Edit</a> |
+            <a asp-action="Delete" asp-route-id="@member.Id">Delete</a>
+        </td>
+    </tr>
+}
+    </tbody>
+</table>

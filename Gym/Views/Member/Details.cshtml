@@ -1,0 +1,43 @@
+@model Gym.Models.Member
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+<h1>Member Details</h1>
+
+<div>
+    <strong>Full Name:</strong> @Model.FullName
+</div>
+
+
+<div>
+    <strong>Assigned Trainer:</strong> @Model.Trainer?.Name ?? "None"
+</div>
+<div>
+    <strong>Email:</strong> @Model.Email
+</div>
+<div>
+    <strong>Phone:</strong> @Model.PhoneNumber
+</div>
+
+<div>
+    <strong>Joined Classes:</strong><br />
+    @if (Model.MemberClasses != null && Model.MemberClasses.Any())
+    {
+        <ul>
+            @foreach (var mc in Model.MemberClasses)
+            {
+                <li>@mc.GymClass.ClassName</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No classes joined.</p>
+    }
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>

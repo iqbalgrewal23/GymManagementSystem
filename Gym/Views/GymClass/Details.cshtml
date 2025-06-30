@@ -1,0 +1,32 @@
+@model Gym.Models.GymClass
+@{
+    ViewData["Title"] = "Class Details";
+}
+
+<h1>Class Details</h1>
+
+<div>
+    <strong>Class Name:</strong> @Model.ClassName
+</div>
+
+<div>
+    <strong>Enrolled Members:</strong><br />
+    @if (Model.MemberClasses != null && Model.MemberClasses.Any())
+    {
+        <ul>
+            @foreach (var mc in Model.MemberClasses)
+            {
+                <li>@mc.Member.FullName</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No members enrolled.</p>
+    }
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>

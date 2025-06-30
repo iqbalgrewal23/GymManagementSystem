@@ -1,0 +1,57 @@
+@model Gym.Models.Member
+@{
+    ViewData["Title"] = "Edit Member";
+    var trainers = ViewBag.Trainers as List<Gym.Models.Trainer>;
+    var gymClasses = ViewBag.GymClasses as List<Gym.Models.GymClass>;
+    var selectedClasses = ViewBag.SelectedClasses as List<int>;
+}
+
+<h1>Edit Member</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label>Full Name</label>
+        <input asp-for="FullName" />
+        <span asp-validation-for="FullName"></span>
+    </div>
+    <div>
+    <label>Email</label>
+    <input asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+</div>
+
+<div>
+    <label>Phone Number</label>
+    <input asp-for="PhoneNumber" />
+    <span asp-validation-for="PhoneNumber"></span>
+</div>
+
+
+    <div>
+        <label>Trainer</label>
+        <select name="trainerId">
+            <option value="">-- None --</option>
+            @foreach (var trainer in trainers)
+            {
+                var isSelected = trainer.Id == Model.TrainerId ? "selected" : "";
+                var optionHtml = $"<option value='{trainer.Id}' {isSelected}>{trainer.Name}</option>";
+                @Html.Raw(optionHtml)
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Joined Classes:</label><br />
+        @foreach (var gc in gymClasses)
+        {
+            var isChecked = selectedClasses.Contains(gc.Id) ? "checked" : "";
+            <input type="checkbox" name="selectedClasses" value="@gc.Id" @isChecked />
+            <label>@gc.ClassName</label><br />
+        }
+    </div>
+
+    <button type="submit">Save Changes</button>
+    <a asp-action="Index">Cancel</a>
+</form>

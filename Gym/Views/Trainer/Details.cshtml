@@ -1,0 +1,34 @@
+@model Gym.Models.Trainer
+@{
+    ViewData["Title"] = "Trainer Details";
+}
+
+<h1>Trainer Details</h1>
+
+<div>
+    <strong>Name:</strong> @Model.Name
+</div>
+<div>
+    <strong>Phone Number:</strong> @Model.PhoneNumber
+</div>
+<div>
+    <strong>Email:</strong> @Model.Email
+</div>
+
+@if (Model.Members != null && Model.Members.Any())
+{
+    <h3>Assigned Members</h3>
+    <ul>
+        @foreach (var member in Model.Members)
+        {
+            <li>@member.FullName</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No members assigned.</p>
+}
+
+<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+<a asp-action="Index">Back to List</a>

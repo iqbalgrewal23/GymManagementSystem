@@ -1,0 +1,17 @@
+@model Gym.Models.GymClass
+@{
+    ViewData["Title"] = "Add Gym Class";
+}
+
+<h1>Add Gym Class</h1>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label for="ClassName">Class Name</label>
+        <input asp-for="ClassName" />
+        <span asp-validation-for="ClassName"></span>
+    </div>
+
+    <button type="submit">Create</button>
+    <a asp-action="Index">Cancel</a>
+</form>

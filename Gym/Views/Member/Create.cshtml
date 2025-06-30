@@ -1,0 +1,51 @@
+@model Gym.Models.Member
+@{
+    ViewData["Title"] = "Add Member";
+    var trainers = ViewBag.Trainers as List<Gym.Models.Trainer>;
+    var gymClasses = ViewBag.GymClasses as List<Gym.Models.GymClass>;
+}
+
+<h1>Add Member</h1>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label for="FullName">Full Name</label>
+        <input asp-for="FullName" />
+        <span asp-validation-for="FullName"></span>
+    </div>
+    <div>
+    <label>Email</label>
+    <input asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+</div>
+
+<div>
+    <label>Phone Number</label>
+    <input asp-for="PhoneNumber" />
+    <span asp-validation-for="PhoneNumber"></span>
+</div>
+
+
+    <div>
+        <label for="TrainerId">Trainer</label>
+        <select name="trainerId">
+            <option value="">-- None --</option>
+            @foreach (var trainer in trainers)
+            {
+                <option value="@trainer.Id">@trainer.Name</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Join Classes:</label><br />
+        @foreach (var gc in gymClasses)
+        {
+            <input type="checkbox" name="selectedClasses" value="@gc.Id" />
+            <label>@gc.ClassName</label><br />
+        }
+    </div>
+
+    <button type="submit">Create</button>
+    <a asp-action="Index">Cancel</a>
+</form>
